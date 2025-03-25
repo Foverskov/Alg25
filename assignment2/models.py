@@ -47,33 +47,67 @@ class BinarySearchTree:
         The arguments are some key `k` and some value `v` and the method should
         insert a new Node(k, v) into the tree
         """
-        raise NotImplementedError
+        new_node = Node(key=k,value=v)
+
+        x = self.root
+        y = None
+        while x != None:
+            y = x 
+            if new_node.key < x.key:
+                x = x.left
+            else:
+                x = x.right
+        new_node.p = y
+        if y == None:
+            self.root = new_node
+        elif new_node.key < y.key:
+            y.left = new_node
+        else: 
+            y.right = new_node
+
 
     def range(self, low, high):
         """
-        IMPLEMENT THIS
-
         The method should return a list of nodes whose key are in the range low
         to high (excluding low, including high)
         """
-        raise NotImplementedError
+        result = []
+        def rangeSearch(node,low,high):
+            if node is None:
+                return
+            
+            if node.key > low:
+                rangeSearch(node.left,low,high)
+            
+            if node.key > low and node.key <= high:
+                result.append(node)
+
+            if node.key <= high:
+                rangeSearch(node.right,low,high)
+
+        rangeSearch(self.root,low,high)
+
+        return result
 
     def select(self, k):
         """
-        IMPLEMENT THIS
-
         The method should return the node with rank k
         """
-        raise NotImplementedError
-
-
+        
+    
 if __name__ == '__main__':
     # you can use this code to help test your implementation in the beginning
     arr = [15, 7, 19, 1, 4, 7, 14, 6, 10]
 
     tree = BinarySearchTree()
-    for el in arr:
-        tree.insert(el, el)
+    for elm in arr:
+        tree.insert(elm, elm)
 
     # this should print [1, 4, 6, 7, 10, 14, 15, 19]
     tree.print_sorted()
+
+    print("________ RANGE test ________")
+    result = tree.range(2,12)
+
+    for elm in result:
+        print(elm.key)
