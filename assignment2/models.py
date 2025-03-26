@@ -10,6 +10,7 @@ class Node:
         self.left = left
         self.right = right
         self.size = 1
+   
 
     def __str__(self):
         return f'Node(key: {self.key}, val: {self.value})'
@@ -51,7 +52,10 @@ class BinarySearchTree:
 
         x = self.root
         y = None
+        nodeToUpdate = []
+
         while x != None:
+            nodeToUpdate.append(x)
             y = x 
             if new_node.key < x.key:
                 x = x.left
@@ -64,6 +68,9 @@ class BinarySearchTree:
             y.left = new_node
         else: 
             y.right = new_node
+        
+        for node in nodeToUpdate:
+            node.size += 1
 
 
     def range(self, low, high):
@@ -93,7 +100,20 @@ class BinarySearchTree:
         """
         The method should return the node with rank k
         """
-        
+        def selectSearch(node,k):
+            if node is None:
+                return
+            
+            left_size = 0
+            if node.left is not None: 
+                left_size = node.left.size
+            if left_size == k: 
+                    return node
+            elif left_size > k: 
+                return selectSearch(node.left,k)
+            else: 
+                return selectSearch(node.right,k-left_size-1)
+            
     
 if __name__ == '__main__':
     # you can use this code to help test your implementation in the beginning
