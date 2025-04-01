@@ -17,8 +17,8 @@ def get_task_files(task_path):
         else:
             tasks.append(file)
 
-    tasks.sort(key=lambda x: int(re.search('_(/d+)', x).group(1)))
-    solutions.sort(key=lambda x: int(re.search('_(/d+)', x).group(1)))
+    tasks.sort(key=lambda x: int(re.search('_(\d+)', x).group(1)))
+    solutions.sort(key=lambda x: int(re.search('_(\d+)', x).group(1)))
 
     return [(tasks[i], solutions[i]) for i in range(len(tasks))]
 

@@ -100,24 +100,26 @@ class BinarySearchTree:
         """
         The method should return the node with rank k
         """
-        def selectSearch(node,k):
+        def selectSearch(node, k):
             if node is None:
-                return
-            
+                return None
+
             left_size = 0
             if node.left is not None: 
                 left_size = node.left.size
             if left_size == k: 
                     return node
             elif left_size > k: 
-                return selectSearch(node.left,k)
+                return selectSearch(node.left, k)
             else: 
-                return selectSearch(node.right,k-left_size-1)
+                return selectSearch(node.right, k-left_size-1)
+        
+        return selectSearch(self.root, k)  # Add this line to return the result
             
     
 if __name__ == '__main__':
     # you can use this code to help test your implementation in the beginning
-    arr = [15, 7, 19, 1, 4, 7, 14, 6, 10]
+    arr = [15, 7, 19, 1, 4, 7, 14, 6, 10,12,2]
 
     tree = BinarySearchTree()
     for elm in arr:
@@ -131,3 +133,7 @@ if __name__ == '__main__':
 
     for elm in result:
         print(elm.key)
+
+    print("________ SELECT test ________")
+
+    print(tree.select(1))
